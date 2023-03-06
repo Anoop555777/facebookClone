@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import './HomeLoginScreen.css';
 import { Link } from 'react-router-dom';
+import Footer from './../Component/Footer';
 const HomeLoginComponent = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -104,6 +105,7 @@ const HomeLoginComponent = () => {
           </div>
         </div>
       </div>
+      <Footer />
     </>
   );
 };
