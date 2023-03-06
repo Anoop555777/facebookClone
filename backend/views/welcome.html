@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>welcome</title>
+
+    <style>
+      .logo {
+        margin: 24px 0;
+      }
+
+      .heading__primary {
+        font-size: 24px;
+        font-family: Roboto;
+        font-weight: 600;
+        margin-bottom: 18px;
+      }
+
+      .validation__details {
+        padding: 12px;
+        border-bottom: 1px solid #e5e5e5;
+        border-top: 1px solid #e5e5e5;
+      }
+
+      .text {
+        font-size: 18px;
+        font-weight: 400;
+        font-family: Roboto;
+      }
+
+      .btn,
+      .btn:active {
+        display: inline-block;
+        margin: 12px 0;
+        padding: 12px 18px;
+        background-color: #3b5990;
+        text-decoration: none;
+        color: #e5e5e5 !important;
+        font-family: Roboto;
+        font-size: 18px;
+        border-radius: 11px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="logo">
+      <img
+        class="logo__img"
+        src="https://res.cloudinary.com/dmhcnhtng/image/upload/v1645134414/logo_cs1si5.png"
+        alt="facebook_logo"
+      />
+      <h3 class="heading__secondary">Active Your facebook account</h3>
+    </div>
+
+    <main>
+      <div class="validation__details">
+        <h2 class="heading__primary">Hello {%NAME%}</h2>
+        <p class="text">
+          You recently created an account on Facebook. To complete your
+          registration, please confirm your account.
+        </p>
+        <a class="btn" href="{%url%}" target="_blank"> Confirm your account</a>
+        <p class="text">
+          Facebook allows you to stay in touch with all your friends, once
+          refistered on facebook,you can share photos,organize events and much
+          more.
+        </p>
+      </div>
+    </main>
+  </body>
+</html>
