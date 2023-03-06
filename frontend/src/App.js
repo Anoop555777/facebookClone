@@ -1,9 +1,9 @@
 import { Routes, Route } from 'react-router-dom';
-import HomeLoginComponent from './Screen/HomeLoginComponent';
+import HomeLoginScreen from './Screen/HomeLoginScreen';
 function App() {
   return (
     <Routes>
-      <Route path="/" element={<HomeLoginComponent />} />
+      <Route path="/" element={<HomeLoginScreen />} />
     </Routes>
   );
 }
