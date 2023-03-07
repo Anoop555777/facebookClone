@@ -10,6 +10,7 @@ html {
   overflow-y: scroll;
   font-size: 62.5%;
 }
+
 a {
   text-decoration: none;
   color: inherit;
@@ -37,4 +38,8 @@ a {
   --shadow-inset: rgba(255, 255, 255, 0.5);
 }
 
-/*----Buttons----*/
+.heading__primary {
+  font-size: 3.2rem;
+  font-weight: 700;
+  color: var(--dark-color-primary);
+}

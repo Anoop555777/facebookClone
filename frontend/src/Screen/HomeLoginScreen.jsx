@@ -2,11 +2,14 @@ import { useState } from 'react';
 import './HomeLoginScreen.css';
 import { Link } from 'react-router-dom';
 import Footer from './../Component/Footer';
+import Register from '../Component/Register';
 const HomeLoginComponent = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [emailTouched, setEmailTouched] = useState(false);
   const [passwordTouched, setPasswordTouched] = useState(false);
+
+  const [registerForm, setRegisterForm] = useState(false);
 
   const emailIsValid = email
     .toLowerCase()
@@ -31,6 +34,15 @@ const HomeLoginComponent = () => {
   const passwordHandler = e => {
     setPassword(e.target.value);
   };
+
+  const openRegisterForm = () => {
+    setRegisterForm(true);
+  };
+
+  const closeRegisterForm = () => {
+    setRegisterForm(false);
+  };
+
   return (
     <>
       <div className="login">
@@ -50,7 +62,7 @@ const HomeLoginComponent = () => {
               <form className="form__login">
                 <div className="login__form-group">
                   {enteredEmailIsValid && (
-                    <div class="error__input">Email invalid</div>
+                    <div className="error__input">Email invalid</div>
                   )}
                   {enteredEmailIsValid && (
                     <i className="error_icon error__icon-login "></i>
@@ -91,11 +103,13 @@ const HomeLoginComponent = () => {
                   Log in
                 </button>
               </form>
-              <div class="forget__password">
+              <div className="forget__password">
                 <Link to="/forgot">Forgotten password ?</Link>
               </div>
 
-              <button className="btn btn--green">Create Account</button>
+              <button className="btn btn--green" onClick={openRegisterForm}>
+                Create Account
+              </button>
             </div>
             <div className="sign_extra">
               <Link to="/">
@@ -106,6 +120,7 @@ const HomeLoginComponent = () => {
         </div>
       </div>
       <Footer />
+      {<Register onCloseHandler={closeRegisterForm} />}
     </>
   );
 };

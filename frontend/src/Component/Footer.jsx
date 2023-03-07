@@ -79,7 +79,7 @@ const Footer = () => {
         <Link to="/">Help</Link>
       </ul>
 
-      <p class="copywrite">Meta &copy; 2023</p>
+      <p className="copywrite">Meta &copy; 2023</p>
     </div>
   );
 };

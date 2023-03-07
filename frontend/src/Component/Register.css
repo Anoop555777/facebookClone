@@ -1,0 +1,115 @@
+.model {
+  position: fixed;
+  left: 0;
+  top: 0;
+  background-color: rgba(255, 255, 255, 0.7);
+  height: 100vh;
+  width: 100%;
+
+  z-index: 99;
+}
+
+.register__login-box {
+  max-width: 42rem;
+  background-color: var(--bg-primary);
+  position: absolute;
+
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 1.2rem;
+  box-shadow: 0 1.5rem 2rem rgba(0, 0, 0, 0.2);
+  border-radius: 5px;
+}
+
+.exit_icon {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+}
+
+.register_description {
+  padding: 1rem 0;
+  font-size: 1.4rem;
+  border-bottom: 1px solid var(--bg-third);
+}
+
+.form__register {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+  padding: 1.6rem 1.2rem;
+}
+
+.div__box {
+  display: flex;
+
+  width: 100%;
+  gap: 1.2rem;
+}
+
+.register__form-group input {
+  width: 100%;
+  height: 3.8rem;
+  border: 1px solid var(--bg-third);
+  border-radius: 5px;
+  padding-left: 1.2rem;
+  padding-bottom: 0.2rem;
+  font-family: inherit;
+  font-size: 1.6rem;
+  outline: none;
+  background-color: var(--bg-secondary);
+}
+
+.register__form-group input::-webkit-input-placeholder {
+  color: var(--dark-color-secondary);
+  font-size: 1.4rem;
+  font-family: inherit;
+}
+.DOB__heading,
+.gender__heading {
+  font-size: 1.2rem;
+  margin-bottom: 0.2rem;
+}
+
+.DOB,
+.gender {
+  width: 100%;
+}
+
+.DOB_grid,
+.gender_grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  align-items: center;
+  gap: 1.2rem;
+}
+
+.DOB_grid > *,
+.gender_grid > * {
+  color: #1c1e21;
+  font-family: SFProText-Medium, Helvetica, Arial, sans-serif;
+  font-size: 15px;
+  font-weight: normal;
+  height: 36px;
+  line-height: 20px;
+
+  border-radius: 5px;
+  cursor: pointer;
+  background-color: var(--bg-primary);
+}
+
+.register_infos {
+  font-size: 1.1rem;
+}
+
+.gender_grid label {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  border: 1px solid #1c1e21;
+  justify-content: space-between;
+  padding: 0 0.5rem;
+  font-size: 1.4rem;
+  gap: 0.8rem;
+}
