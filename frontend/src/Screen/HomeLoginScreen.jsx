@@ -43,6 +43,16 @@ const HomeLoginComponent = () => {
     setRegisterForm(false);
   };
 
+  const onSubmitHandler = e => {
+    e.preventDefault();
+    setEmailTouched(true);
+    setPasswordTouched(true);
+
+    if (!enteredEmailIsValid || !enteredPasswordIsValid) return;
+
+    console.log('success');
+  };
+
   return (
     <>
       <div className="login">
@@ -59,7 +69,7 @@ const HomeLoginComponent = () => {
           </div>
           <div>
             <div className="login__form">
-              <form className="form__login">
+              <form className="form__login" onSubmit={onSubmitHandler}>
                 <div className="login__form-group">
                   {enteredEmailIsValid && (
                     <div className="error__input">Email invalid</div>
@@ -119,8 +129,8 @@ const HomeLoginComponent = () => {
           </div>
         </div>
       </div>
+      {registerForm && <Register onCloseHandler={closeRegisterForm} />}
       <Footer />
-      {<Register onCloseHandler={closeRegisterForm} />}
     </>
   );
 };

@@ -1,7 +1,9 @@
 import { useState } from 'react';
-
+import { useSelector, useDispatch } from 'react-redux';
 import './Register.css';
 const Register = props => {
+  const { loading, success, error } = useSelector(state => state.user);
+  const dispatch = useDispatch();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [firstName, setFirstName] = useState('');
@@ -48,7 +50,7 @@ const Register = props => {
   const passwordIsValid = password.length > 7;
   const enteredPasswordIsValid = !passwordIsValid && passwordTouched;
 
-  const birthdayIsValid = new Date(new Date().getFullYear) - birthYear > 17;
+  const birthdayIsValid = new Date(new Date().getFullYear()) - birthYear > 17;
   const enderedBirthdayIsValid = !birthdayIsValid && birthdateTouched;
 
   const genderIsValid = ['male', 'female', 'custom'].includes(gender);
@@ -68,6 +70,14 @@ const Register = props => {
 
   const surnameTouchedHandler = () => {
     setLastNameTouched(true);
+  };
+
+  const birthDateTouchedHandler = () => {
+    setBirthdateTouched(true);
+  };
+
+  const genderTouchedHandler = () => {
+    setGenderTouched(true);
   };
 
   const emailHandler = e => {
@@ -104,6 +114,27 @@ const Register = props => {
     setGender(e.target.id);
   };
 
+  const onSubmitHandler = e => {
+    e.preventDefault();
+
+    setGenderTouched(true);
+    setFirstNameTouched(true);
+    setLastNameTouched(true);
+    setEmailTouched(true);
+    setPasswordTouched(true);
+    setBirthdateTouched(true);
+
+    if (
+      !enteredEmailIsValid ||
+      !enderedBirthdayIsValid ||
+      !enteredFirstNameIsValid ||
+      !enteredSurNameIsValid ||
+      !enteredPasswordIsValid ||
+      enderedGenderIsValid
+    )
+      return;
+  };
+
   return (
     <div className="model">
       <div className="register__login-box">
@@ -111,14 +142,14 @@ const Register = props => {
         <i className="exit_icon" onClick={closeHandler}></i>
         <p className="register_description">it's quick and easy.</p>
 
-        <form className="form__register">
+        <form className="form__register" onSubmit={onSubmitHandler}>
           <div className="div__box">
             <div className="register__form-group">
               {enteredFirstNameIsValid && (
-                <div className="error__input">Email invalid</div>
+                <div className="error__input">Firstname invalid</div>
               )}
               {enteredFirstNameIsValid && (
-                <i className="error_icon error__icon-login "></i>
+                <i className="error_icon error__icon-register "></i>
               )}
               {enteredFirstNameIsValid && (
                 <span className="error_arrow-top"></span>
@@ -134,10 +165,10 @@ const Register = props => {
             </div>
             <div className="register__form-group">
               {enteredSurNameIsValid && (
-                <div className="error__input">Email invalid</div>
+                <div className="error__input">Lastname invalid</div>
               )}
               {enteredSurNameIsValid && (
-                <i className="error_icon error__icon-login "></i>
+                <i className="error_icon error__icon-register "></i>
               )}
               {enteredSurNameIsValid && (
                 <span className="error_arrow-top"></span>
@@ -157,7 +188,7 @@ const Register = props => {
               <div className="error__input">Email invalid</div>
             )}
             {enteredEmailIsValid && (
-              <i className="error_icon error__icon-login "></i>
+              <i className="error_icon error__icon-register "></i>
             )}
             {enteredEmailIsValid && <span className="error_arrow-top"></span>}
             <input
@@ -171,7 +202,7 @@ const Register = props => {
           </div>
           <div className="register__form-group">
             {enteredPasswordIsValid && (
-              <i className="error_icon error__icon-login error__icon-login-1"></i>
+              <i className="error_icon error__icon-register error__icon-login-1 error__icon-register-1"></i>
             )}
             {enteredPasswordIsValid && (
               <span className="error_arrow-down"></span>
@@ -190,15 +221,17 @@ const Register = props => {
           </div>
 
           <div className="register__form-group">
-            {enderedBirthdayIsValid && (
-              <div className="error__input">please enter valid birthday</div>
-            )}
-            {enderedBirthdayIsValid && (
-              <i className="error_icon error__icon-login "></i>
-            )}
-            <div className="DOB__heading">
+            <div className="register__input-heading">
               Date of birth <i className="info_icon"></i>
             </div>
+
+            {enderedBirthdayIsValid && (
+              <i className="error_icon error__icon-register "></i>
+            )}
+            {enderedBirthdayIsValid && (
+              <span className="error_arrow-down"></span>
+            )}
+
             <div className="DOB_grid">
               <select name="bDay" onChange={dayChangeHandler} value={birthDay}>
                 {days.map(el => (
@@ -222,6 +255,7 @@ const Register = props => {
                 name="bYear"
                 onChange={yearChangeHandler}
                 value={birthYear}
+                onBlur={birthDateTouchedHandler}
               >
                 {year.map(el => (
                   <option value={el} key={el}>
@@ -230,18 +264,20 @@ const Register = props => {
                 ))}
               </select>
             </div>
+            {enderedBirthdayIsValid && (
+              <div className="error__input">You must be above 18</div>
+            )}
           </div>
 
           <div className="register__form-group">
-            {enderedGenderIsValid && (
-              <div className="error__input">please enter valid gender</div>
-            )}
-            {enderedGenderIsValid && (
-              <i className="error_icon error__icon-login "></i>
-            )}
-            <div className="gender__heading">
+            <div className="register__input-heading">
               Date of birth <i className="info_icon"></i>
             </div>
+            {enderedGenderIsValid && (
+              <i className="error_icon error__icon-register "></i>
+            )}
+
+            {enderedGenderIsValid && <span className="error_arrow-down"></span>}
             <div className="gender_grid">
               <label htmlFor="male">
                 Male
@@ -251,6 +287,7 @@ const Register = props => {
                   id="male"
                   value={gender}
                   onChange={genderHandler}
+                  onBlur={genderTouchedHandler}
                 />
               </label>
               <label htmlFor="female">
@@ -261,6 +298,7 @@ const Register = props => {
                   id="female"
                   value={gender}
                   onChange={genderHandler}
+                  onBlur={genderTouchedHandler}
                 />
               </label>
               <label htmlFor="custom">
@@ -271,9 +309,13 @@ const Register = props => {
                   id="custom"
                   value={gender}
                   onChange={genderHandler}
+                  onBlur={genderTouchedHandler}
                 />
               </label>
             </div>
+            {enderedGenderIsValid && (
+              <div className="error__input">Gender Invalid</div>
+            )}
           </div>
           <div className="register_infos">
             By clicking Sign Up, you agree to our{' '}

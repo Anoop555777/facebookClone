@@ -43,16 +43,7 @@ const userSchema = mongoose.Schema(
       minlength: 8,
       select: false,
     },
-    confirmPassword: {
-      type: String,
-      required: [true, 'confirm password is required'],
-      validate: {
-        validator: function (el) {
-          return el === this.password;
-        },
-        message: 'password must be same',
-      },
-    },
+
     picture: {
       type: String,
       trim: true,

@@ -43,9 +43,9 @@
 
 .div__box {
   display: flex;
-
   width: 100%;
   gap: 1.2rem;
+  justify-content: space-between;
 }
 
 .register__form-group {
@@ -71,8 +71,8 @@
   font-size: 1.4rem;
   font-family: inherit;
 }
-.DOB__heading,
-.gender__heading {
+
+.register__input-heading {
   font-size: 1.2rem;
   margin-bottom: 0.2rem;
 }
@@ -112,4 +112,81 @@
   padding: 0 0.5rem;
   font-size: 1.4rem;
   gap: 0.8rem;
+}
+
+.register__form-group .error__input {
+  top: 0.2rem;
+  padding: 0.8rem 0;
+}
+
+.register__form-group .error_arrow-top {
+  top: 1rem;
+}
+
+.error__icon-register {
+  position: absolute;
+  right: 0.7rem;
+  top: 25%;
+}
+
+.register__input-heading + .error__icon-register {
+  top: -0.5rem;
+}
+
+.register__form-group .register__input-heading ~ .error__input {
+  top: 36%;
+}
+
+.register__form-group .register__input-heading ~ .error_arrow-down {
+  top: 50%;
+}
+
+.div__box > *:last-child .error__input {
+  right: 0%;
+  left: 102.5%;
+}
+
+.div__box > *:last-child .error_arrow-top {
+  border-left: none;
+  border-right: 10px solid #b94a48;
+  left: 100%;
+}
+
+@media (max-width: 51rem) {
+  .div__box {
+    flex-direction: column;
+  }
+
+  .register__form-group .error__input {
+    top: 0;
+    left: 0 !important;
+  }
+
+  .register__form-group .error_arrow-top {
+    left: 0;
+    border-top: 10px solid #b94a48;
+    border-right: 10px solid transparent !important;
+    border-left: 10px solid transparent !important;
+    border-bottom: none !important;
+    top: 41%;
+    left: 2rem !important;
+  }
+
+  .register__form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+  }
+
+  .error__icon-register {
+    top: 64%;
+  }
+
+  .register__form-group .register__input-heading ~ .error_arrow-down {
+    top: 54%;
+  }
+
+  .register__form-group .error_arrow-top {
+    top: 39%;
+  }
 }
