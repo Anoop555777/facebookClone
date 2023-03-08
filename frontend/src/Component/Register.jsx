@@ -6,10 +6,13 @@ const Register = props => {
   const [password, setPassword] = useState('');
   const [firstName, setFirstName] = useState('');
   const [surname, setSurname] = useState('');
+  const [gender, setGender] = useState('');
   const [emailTouched, setEmailTouched] = useState(false);
   const [passwordTouched, setPasswordTouched] = useState(false);
   const [firstNameTouched, setFirstNameTouched] = useState(false);
   const [lastNameTouched, setLastNameTouched] = useState(false);
+  const [birthdateTouched, setBirthdateTouched] = useState(false);
+  const [genderTouched, setGenderTouched] = useState(false);
   const [birthYear, setBirthYear] = useState(
     new Date(Date.now()).getFullYear()
   );
@@ -44,6 +47,12 @@ const Register = props => {
 
   const passwordIsValid = password.length > 7;
   const enteredPasswordIsValid = !passwordIsValid && passwordTouched;
+
+  const birthdayIsValid = new Date(new Date().getFullYear) - birthYear > 17;
+  const enderedBirthdayIsValid = !birthdayIsValid && birthdateTouched;
+
+  const genderIsValid = ['male', 'female', 'custom'].includes(gender);
+  const enderedGenderIsValid = !genderIsValid && genderTouched;
 
   const emailTouchedHandler = () => {
     setEmailTouched(true);
@@ -89,6 +98,10 @@ const Register = props => {
 
   const dayChangeHandler = e => {
     setBirthDay(e.target.value);
+  };
+
+  const genderHandler = e => {
+    setGender(e.target.id);
   };
 
   return (
@@ -176,7 +189,13 @@ const Register = props => {
             )}
           </div>
 
-          <div className="DOB">
+          <div className="register__form-group">
+            {enderedBirthdayIsValid && (
+              <div className="error__input">please enter valid birthday</div>
+            )}
+            {enderedBirthdayIsValid && (
+              <i className="error_icon error__icon-login "></i>
+            )}
             <div className="DOB__heading">
               Date of birth <i className="info_icon"></i>
             </div>
@@ -213,22 +232,46 @@ const Register = props => {
             </div>
           </div>
 
-          <div className="gender">
+          <div className="register__form-group">
+            {enderedGenderIsValid && (
+              <div className="error__input">please enter valid gender</div>
+            )}
+            {enderedGenderIsValid && (
+              <i className="error_icon error__icon-login "></i>
+            )}
             <div className="gender__heading">
               Date of birth <i className="info_icon"></i>
             </div>
             <div className="gender_grid">
               <label htmlFor="male">
                 Male
-                <input type="radio" name="gender" id="male" value="male" />
+                <input
+                  type="radio"
+                  name="gender"
+                  id="male"
+                  value={gender}
+                  onChange={genderHandler}
+                />
               </label>
               <label htmlFor="female">
                 Female
-                <input type="radio" name="gender" id="female" value="female" />
+                <input
+                  type="radio"
+                  name="gender"
+                  id="female"
+                  value={gender}
+                  onChange={genderHandler}
+                />
               </label>
               <label htmlFor="custom">
                 Custom
-                <input type="radio" name="gender" id="custom" value="custom" />
+                <input
+                  type="radio"
+                  name="gender"
+                  id="custom"
+                  value={gender}
+                  onChange={genderHandler}
+                />
               </label>
             </div>
           </div>
