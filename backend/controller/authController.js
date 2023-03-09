@@ -1,6 +1,5 @@
 const User = require('./../model/userModel');
 const catchAsync = require('./../utils/catchAsync');
-const Validator = require('./../utils/emialValidator');
 const AppError = require('./../utils/appError');
 const jwt = require('jsonwebtoken');
 const Email = require('./../utils/email');
@@ -12,7 +11,7 @@ const tokenGenerator = id => {
   });
 };
 
-const sendToken = (user, statusCode, res) => {
+const sendToken = (user, statusCode, res, signin = false) => {
   const token = tokenGenerator(user._id);
 
   const cookieOptions = {
@@ -28,7 +27,9 @@ const sendToken = (user, statusCode, res) => {
   res.locals.user = user;
 
   res.status(statusCode).json({
-    status: 'success',
+    status: signin
+      ? 'Register is complete! Please confirm your email to start'
+      : 'success',
     token,
     data: { user },
   });
@@ -38,13 +39,14 @@ exports.signIn = catchAsync(async (req, res, next) => {
   const user = await User.create(req.body);
 
   const token = tokenGenerator(user._id);
-  const url = `${req.protocol}://${req.get(
-    'host'
-  )}/api/v1/users/verify?token=${token}`;
+  // const url = `${req.protocol}://${req.get(
+  //   'host'
+  // )}/api/v1/users/verify?token=${token}`;
+  const url = `http://localhost:3000/verified?token=${token}`;
 
   await new Email(user, url).sendVerified();
 
-  sendToken(user, 200, res);
+  sendToken(user, 200, res, true);
 });
 
 exports.verified = catchAsync(async (req, res, next) => {

@@ -152,6 +152,12 @@
   left: 100%;
 }
 
+.dotLoader {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 @media (max-width: 51rem) {
   .div__box {
     flex-direction: column;

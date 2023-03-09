@@ -4,7 +4,7 @@ const userSlice = createSlice({
   name: 'user',
   initialState: {
     user: [],
-    success: false,
+    success: '',
     loading: false,
     error: false,
   },
@@ -16,6 +16,7 @@ const userSlice = createSlice({
       state.loading = false;
       state.user = action.payload.user;
       state.error = null;
+      state.success = action.payload.status;
     },
     userRegisterFail(state, action) {
       state.loading = false;

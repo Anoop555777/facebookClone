@@ -1,8 +1,22 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import DotLoader from 'react-spinners/DotLoader';
 import { useSelector, useDispatch } from 'react-redux';
+import { register } from '../store/userAction';
+import { useNavigate } from 'react-router-dom';
 import './Register.css';
 const Register = props => {
+  const navigate = useNavigate();
   const { loading, success, error } = useSelector(state => state.user);
+  const { verified } = useSelector(state => state.verified);
+
+  useEffect(() => {
+    if (verified) {
+      setTimeout(() => {
+        navigate('/home');
+      }, 2000);
+    }
+  }, [verified]);
+
   const dispatch = useDispatch();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -124,15 +138,53 @@ const Register = props => {
     setPasswordTouched(true);
     setBirthdateTouched(true);
 
-    if (
-      !enteredEmailIsValid ||
-      !enderedBirthdayIsValid ||
-      !enteredFirstNameIsValid ||
-      !enteredSurNameIsValid ||
-      !enteredPasswordIsValid ||
+    console.log(
+      enteredEmailIsValid,
+      enderedBirthdayIsValid,
+      enteredFirstNameIsValid,
+      enteredSurNameIsValid,
+      enteredPasswordIsValid,
       enderedGenderIsValid
+    );
+
+    if (
+      !emailIsValid ||
+      !birthdayIsValid ||
+      !firstNameIsValid ||
+      !lastNameIsValid ||
+      !passwordIsValid ||
+      !genderIsValid
     )
       return;
+
+    dispatch(
+      register({
+        firstName,
+        surname,
+        email,
+        password,
+        gender,
+        birthYear,
+        birthMonth,
+        birthDay,
+      })
+    );
+
+    setEmail('');
+    setFirstName('');
+    setSurname('');
+    setPassword('');
+    setGender('');
+    setBirthYear(new Date(Date.now()).getFullYear());
+    setBirthMonth(new Date(Date.now()).getMonth() + 1);
+    setBirthDay(new Date(Date.now()).getDate());
+
+    setGenderTouched(false);
+    setFirstNameTouched(false);
+    setLastNameTouched(false);
+    setEmailTouched(false);
+    setPasswordTouched(false);
+    setBirthdateTouched(false);
   };
 
   return (
@@ -327,6 +379,17 @@ const Register = props => {
             <button className="btn btn--green">Sign Up</button>
           </div>
         </form>
+        <div className="dotLoader">
+          <DotLoader
+            color="#1876f2"
+            loading={loading}
+            size={30}
+            aria-label="Loading Spinner"
+            data-testid="loader"
+          />
+          {error && <div className="error_text">{error}</div>}
+          {success && <div className="success_text">{success}</div>}
+        </div>
       </div>
     </div>
   );

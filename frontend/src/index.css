@@ -43,3 +43,13 @@ a {
   font-weight: 700;
   color: var(--dark-color-primary);
 }
+
+.error_text {
+  color: #b6494f;
+  font-size: 1.2rem;
+}
+
+.success_text {
+  font-size: 1.2rem;
+  color: var(--green-color);
+}
