@@ -19,11 +19,27 @@ const VerifiedScreen = () => {
     }
 
     if (verified) {
-      navigate('/home');
+      setTimeout(() => {
+        navigate('/home');
+      }, 3000);
     }
   }, [token, dispatch, navigate, verified]);
 
-  return <div>VerifiedScreen</div>;
+  return (
+    <>
+      {verified && (
+        <div className="verified">
+          <div>
+            <img
+              src="./../../images/verified.png"
+              className="verified_icon"
+              alt="verified_icon"
+            />
+          </div>
+        </div>
+      )}
+    </>
+  );
 };
 
 export default VerifiedScreen;

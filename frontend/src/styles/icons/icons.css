@@ -8,6 +8,7 @@
   display: inline-block;
   -webkit-filter: invert(10%);
 }
+
 .friends_suggestions_icon {
   background-image: url(../../../public/icons/icons11.png);
   background-position: 0px -75px;
@@ -164,6 +165,7 @@
   background-repeat: no-repeat;
   display: inline-block;
 }
+
 .right_icon {
   background-image: url(../../../public/icons/icons18.png);
   background-position: -83px -13px;
