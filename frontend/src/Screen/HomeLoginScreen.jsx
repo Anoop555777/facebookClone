@@ -3,7 +3,10 @@ import './HomeLoginScreen.css';
 import { Link } from 'react-router-dom';
 import Footer from './../Component/Footer';
 import Register from '../Component/Register';
+import { login } from './../store/userAction';
+import { useDispatch, useSelector } from 'react-redux';
 const HomeLoginComponent = () => {
+  const dispatch = useDispatch();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [emailTouched, setEmailTouched] = useState(false);
@@ -48,9 +51,13 @@ const HomeLoginComponent = () => {
     setEmailTouched(true);
     setPasswordTouched(true);
 
-    if (!enteredEmailIsValid || !enteredPasswordIsValid) return;
+    if (!emailIsValid || !passwordIsValid) return;
+    dispatch(login(email, password));
 
-    console.log('success');
+    setEmailTouched(false);
+    setPasswordTouched(false);
+    setEmail('');
+    setPassword('');
   };
 
   return (

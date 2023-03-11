@@ -14,7 +14,7 @@ const userSlice = createSlice({
     },
     userRegisterSuccess(state, action) {
       state.loading = false;
-      state.user = action.payload.user;
+      state.user = [action.payload.user];
       state.error = null;
       state.success = action.payload.status;
     },
@@ -27,7 +27,7 @@ const userSlice = createSlice({
     },
     userLoginSuccess(state, action) {
       state.loading = false;
-      state.user = action.payload.user;
+      state.user = [action.payload.user];
 
       state.error = false;
     },
@@ -69,6 +69,9 @@ const userSlice = createSlice({
       state.error = false;
       state.success = false;
       state.user = [];
+    },
+    userVerified(state) {
+      state.user[0].verified = true;
     },
   },
 });

@@ -10,9 +10,11 @@ const Register = props => {
   const { verified } = useSelector(state => state.verified);
 
   useEffect(() => {
+    if (success) {
+    }
     if (verified) {
       setTimeout(() => {
-        navigate('/home');
+        navigate('/');
       }, 2000);
     }
   }, [verified]);

@@ -1,0 +1,35 @@
+.verify {
+  max-width: 90rem;
+  margin: 0 auto;
+  padding: 4.8rem 3.2rem;
+}
+
+.verify-box {
+  margin-top: 3.2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+}
+
+.verified_input {
+  position: relative;
+  top: 0;
+  left: 0;
+}
+
+.verified_error {
+  top: 7rem;
+}
+
+.verify_arrow {
+  border-top: 10px solid #b94a48;
+  border-right: 10px solid transparent;
+  border-left: 10px solid transparent;
+  position: absolute;
+  top: 41%;
+  left: 2rem;
+}
+
+.verify_button {
+  width: 15%;
+}

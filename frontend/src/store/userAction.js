@@ -32,3 +32,28 @@ export const register = data1 => async dispatch => {
     );
   }
 };
+
+export const login = (email, password) => async dispatch => {
+  try {
+    dispatch(userActions.userLoginRequest());
+
+    const { data } = await axios({
+      method: 'POST',
+      url: '/api/v1/users/login',
+      data: {
+        email,
+        password,
+      },
+    });
+    console.log(data);
+    dispatch(userActions.userLoginSuccess(data));
+  } catch (err) {
+    dispatch(
+      userActions.userLoginFailure(
+        err.response && err.response.data.message
+          ? err.response.data.message
+          : err.message
+      )
+    );
+  }
+};

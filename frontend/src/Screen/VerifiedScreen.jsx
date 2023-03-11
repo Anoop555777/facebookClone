@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { verfied } from './../store/verifiedAction';
+import { userActions } from '../store/userSlice';
 const VerifiedScreen = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -11,7 +12,7 @@ const VerifiedScreen = () => {
   const token = queryParam.get('token');
   useEffect(() => {
     if (!token) {
-      navigate('/');
+      navigate('/login');
     }
 
     if (!verified && token) {
@@ -19,8 +20,9 @@ const VerifiedScreen = () => {
     }
 
     if (verified) {
+      dispatch(userActions.userVerified());
       setTimeout(() => {
-        navigate('/home');
+        navigate('/');
       }, 3000);
     }
   }, [token, dispatch, navigate, verified]);
@@ -30,6 +32,7 @@ const VerifiedScreen = () => {
       {verified && (
         <div className="verified">
           <div>
+            <h1>Verified</h1>
             <img
               src="./../../images/verified.png"
               className="verified_icon"

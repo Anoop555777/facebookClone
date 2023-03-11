@@ -83,12 +83,29 @@ exports.login = catchAsync(async (req, res, next) => {
 
   const user = await User.findOne({ email }).select('+password');
 
-  if (user) {
-    if (!user.verified)
-      return next(new AppError(401, 'sorry first verified you account'));
-  }
   if (!user || !(await user.correctPassword(password, user.password))) {
     return next(new AppError(401, 'Incorrect email or password'));
   }
+  sendToken(user, 200, res);
+});
+
+exports.getVerify = catchAsync(async (req, res, next) => {
+  if (!req.cookie.jwt) next(new AppError(401, 'please login first'));
+
+  const decoded = await util.promisify(jwt.verify)(
+    req.cookie.jwt,
+    process.env.JWT_SECRET
+  );
+
+  //3 verify user
+  const user = await User.findById(decoded.id);
+
+  if (!user)
+    return next(new AppError(401, 'user do not exist please login first'));
+
+  const url = `http://localhost:3000/verified?token=${req.cookie.jwt}`;
+
+  await new Email(user, url).sendVerified();
+
   sendToken(user, 200, res);
 });
