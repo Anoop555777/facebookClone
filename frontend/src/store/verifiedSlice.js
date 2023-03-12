@@ -4,12 +4,13 @@ const verifiedSlice = createSlice({
   name: 'verified',
   initialState: {
     verified: false,
-    error: false,
+    error: '',
     loading: false,
   },
   reducers: {
     verifiedSuccess(state, action) {
       state.verified = action.payload.verified;
+      state.error = '';
     },
     verifiedFail(state, action) {
       state.error = action.payload;

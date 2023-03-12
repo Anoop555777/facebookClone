@@ -8,6 +8,7 @@ const VerifyScreen = () => {
   const dispatch = useDispatch();
 
   const { user } = useSelector(state => state.user);
+  const { error } = useSelector(state => state.verified);
 
   const [email, setEmail] = useState('');
   const [emailTouched, setEmailTouched] = useState(false);
@@ -32,7 +33,7 @@ const VerifyScreen = () => {
 
     if (!emailIsValid) return;
 
-    dispatch(getVerify());
+    dispatch(getVerify(email));
 
     setsendSuccess(true);
     setEmailTouched(false);
@@ -74,11 +75,12 @@ const VerifyScreen = () => {
             Send Email
           </button>
         </form>
-        {sendSuccess && (
+        {error === '' && sendSuccess && (
           <div className="success_text">
             Email is send to respected email id
           </div>
         )}
+        {error && <div className="error_text">{error}</div>}
       </div>
     </div>
   );

@@ -45,8 +45,8 @@ export const login = (email, password) => async dispatch => {
         password,
       },
     });
-    console.log(data);
-    dispatch(userActions.userLoginSuccess(data));
+
+    dispatch(userActions.userLoginSuccess(data.data));
   } catch (err) {
     dispatch(
       userActions.userLoginFailure(

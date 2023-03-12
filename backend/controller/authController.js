@@ -24,6 +24,7 @@ const sendToken = (user, statusCode, res, signin = false) => {
   if (process.env.NODE_ENV === 'production') cookieOptions.secure = true;
 
   res.cookie('jwt', token, cookieOptions);
+
   res.locals.user = user;
 
   res.status(statusCode).json({
@@ -90,10 +91,10 @@ exports.login = catchAsync(async (req, res, next) => {
 });
 
 exports.getVerify = catchAsync(async (req, res, next) => {
-  if (!req.cookie.jwt) next(new AppError(401, 'please login first'));
+  if (!req.cookies.jwt) next(new AppError(401, 'please login first'));
 
   const decoded = await util.promisify(jwt.verify)(
-    req.cookie.jwt,
+    req.cookies.jwt,
     process.env.JWT_SECRET
   );
 
@@ -103,9 +104,14 @@ exports.getVerify = catchAsync(async (req, res, next) => {
   if (!user)
     return next(new AppError(401, 'user do not exist please login first'));
 
-  const url = `http://localhost:3000/verified?token=${req.cookie.jwt}`;
+  if (user.email !== req.body.email)
+    return next(
+      new AppError(400, 'wrong email id !please provide valid email id')
+    );
+
+  const url = `http://localhost:3000/verified?token=${req.cookies.jwt}`;
 
   await new Email(user, url).sendVerified();
 
-  sendToken(user, 200, res);
+  res.status(200).json({ status: 'success', verified: false });
 });

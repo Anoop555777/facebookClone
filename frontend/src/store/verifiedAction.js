@@ -22,15 +22,15 @@ export const verfied = token => async dispatch => {
   }
 };
 
-export const getVerify = () => async dispatch => {
+export const getVerify = email => async dispatch => {
   try {
     const { data } = await axios({
-      method: 'GET',
+      method: 'POST',
       url: `/api/v1/users/verify`,
+      data: { email },
     });
 
     dispatch(verifiedAction.verifiedSuccess(data));
-    dispatch(userActions.userVerified());
   } catch (err) {
     dispatch(
       verifiedAction.verifiedFail(

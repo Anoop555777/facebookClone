@@ -1,18 +1,33 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import './HomeLoginScreen.css';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import Footer from './../Component/Footer';
 import Register from '../Component/Register';
 import { login } from './../store/userAction';
 import { useDispatch, useSelector } from 'react-redux';
+import DotLoader from 'react-spinners/DotLoader';
 const HomeLoginComponent = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [emailTouched, setEmailTouched] = useState(false);
   const [passwordTouched, setPasswordTouched] = useState(false);
 
   const [registerForm, setRegisterForm] = useState(false);
+
+  const { user, loading, success, error } = useSelector(state => state.user);
+  useEffect(() => {
+    if (user.length && !user[0].verified)
+      setTimeout(() => {
+        navigate('/verify');
+      }, 3000);
+
+    if (user.length && user[0].verified)
+      setTimeout(() => {
+        navigate('/');
+      }, 1000);
+  }, [user.length, navigate]);
 
   const emailIsValid = email
     .toLowerCase()
@@ -127,6 +142,19 @@ const HomeLoginComponent = () => {
               <button className="btn btn--green" onClick={openRegisterForm}>
                 Create Account
               </button>
+              <div className="dotLoader">
+                <DotLoader
+                  color="#1876f2"
+                  loading={loading}
+                  size={30}
+                  aria-label="Loading Spinner"
+                  data-testid="loader"
+                />
+              </div>
+              {error && <div className="error_text">{error}</div>}
+              {success && (
+                <div className="success_text">login successfully</div>
+              )}
             </div>
             <div className="sign_extra">
               <Link to="/">

@@ -4,5 +4,5 @@ const router = express.Router();
 router.post('/signup', authController.signIn);
 router.get('/verified', authController.verified);
 router.post('/login', authController.login);
-router.get('/verify', authController.getVerify);
+router.post('/verify', authController.getVerify);
 module.exports = router;

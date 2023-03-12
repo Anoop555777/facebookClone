@@ -5,7 +5,6 @@ const globalHandler = require('./controller/errorController');
 const cookieParser = require('cookie-parser');
 const app = express();
 app.use(cookieParser());
-
 app.use(express.json());
 app.use(cors());
 

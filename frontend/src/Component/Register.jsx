@@ -15,7 +15,7 @@ const Register = props => {
     if (verified) {
       setTimeout(() => {
         navigate('/');
-      }, 2000);
+      }, 1000);
     }
   }, [verified]);
 
@@ -389,9 +389,9 @@ const Register = props => {
             aria-label="Loading Spinner"
             data-testid="loader"
           />
-          {error && <div className="error_text">{error}</div>}
-          {success && <div className="success_text">{success}</div>}
         </div>
+        {error && <div className="error_text">{error}</div>}
+        {success && <div className="success_text">{success}</div>}
       </div>
     </div>
   );

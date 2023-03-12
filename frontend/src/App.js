@@ -8,12 +8,12 @@ import { useSelector } from 'react-redux';
 function App() {
   const { user } = useSelector(state => state.user);
   const navigate = useNavigate();
-  // useEffect(() => {
-  //   if (!user.length) {
-  //     navigate('/login');
-  //   }
-  //   if (user.length && user[0].verified) navigate('/');
-  // }, [user, navigate]);
+  useEffect(() => {
+    if (!user.length) {
+      navigate('/login');
+    }
+    if (user.length && user[0]?.verified) navigate('/');
+  }, [user, navigate]);
 
   return (
     <Routes>
